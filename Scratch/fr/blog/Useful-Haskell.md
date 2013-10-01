@@ -2,8 +2,7 @@
 kind:           article
 published:      2013-09-30
 image: /Scratch/img/blog/Useful-Haskell/main.png
-en: title: Useful Haskell
-fr: title: Useful Haskell
+title: Useful Haskell
 author: Yann Esposito
 authoruri: yannesposito.com
 tags: programming
@@ -13,9 +12,8 @@ blogimage("main.png","Main image")
 
 <div class="intro">
 
-en: %tldr
 
-fr: %tlal
+%tlal
 
 </div>
 
