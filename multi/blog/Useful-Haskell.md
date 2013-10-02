@@ -38,8 +38,46 @@ To put Haskell programming to the next level.
 
 ## I learn Haskell in 5 minutes
 
-Mathematical expression: as usual, just take care of difference between
-Integers and Float (div and (/) ) are different.
+☞ Just a warning. Haskell is full of syntactical sugar.
+In order to talk only about principle I removed most of them.
+Be assured most of the syntax horror you will encounter in this section
+could be done using a far nicer syntax.
+
+### Definitions
+
+Assign a value to some symbol.
+Each value has some type.
+
+    b = True
+    c = 'a'
+
+Associated to each expression/symbol there is a type.
+The `::` means "is of type".
+
+    True :: Bool
+    'a'  :: Char
+
+So what is precisely a type in Haskell?
+The simplest type in Haskell can be created that way.
+
+    data Null = NullConstr
+    x = NullConstr :: Null
+
+On the first line I declared a data type.
+On the second line I instanced a variable to a value of the type.
+There are the following basic type you can use:
+
+    Bool, Char, Int, Float, Double, Integer
+
+And you can compose them to create more complex types.
+
+    data Str = StrConstr [Char]
+    hello = StrConstr ['H','e','l','l','o'] :: Str
+
+    data CharOrInt = C Char | I Int
+    letter_x = C 'x'    :: CharOrInt
+    integer_5 = I '5'   :: CharOrInt
+
 
 Lists:
 
