@@ -1,6 +1,6 @@
 ---
 kind:           article
-published:      2013-09-30
+published:      2013-10-09
 image: /Scratch/img/blog/Useful-Haskell/main.png
 en: title: Useful Haskell
 fr: title: Useful Haskell
