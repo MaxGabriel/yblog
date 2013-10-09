@@ -35,7 +35,7 @@ To put Haskell programming to the next level.
     a. bad prelude!
 
 
-1.a. Minimal syntax
+## I learn Haskell in 5 minutes
 
 ☞ Just a warning. Haskell is full of syntactical sugar.
 In order to talk only about principle I removed most of them.
@@ -78,34 +78,98 @@ And you can compose them to create more complex types.
     integer_5 = I '5'   :: CharOrInt
 
 
+Lists:
+
+    []      ⇒ empty list
+    [1,2,3] ⇔ 1:2:3:[] ⇔ 1:[2,3]
+    [1..]   ⇒ 1:2:3:... infinite list (YES)
+
 Function declaration:
 
-    f x = x^2 + 1
+     fact x = if x<2 then 1 else x * fact (x-1)
 
-basic keywords:
+Which could be invoked like this:
 
-    f x = if x < 0 then -x else x
+     >>> fact 32
+     263130836933693530167218012160000000
 
-    g x = case x of
-            0 -> "zero"
-            1 -> "one"
-            otherwise -> "many"
+There is no "fact(32)" but "fact 32".
+This is a very important syntax design.
 
-    no for!
-    To replace for you have to chose the _right_ for.
+The computation is all about reduction rules.
 
-    -- imperative: modify a table element by element
-    -- for i = 1 to 10; t[i] = 2*t[i]
-    map (2*) t
+    fact 3
+    let x = 3 in if x<2 then 1 else x * fact (x-1)
+    3 * fact (3-1)
+    3 * (let x = 3-1 in if x<2 then 1 else x * fact (x-1))
+    3 * (if 2<1 then 1 else 2 * fact (2-1))
+    3 * (2*(let x = 2-1 in if x<2 then 1 else x * fact (x-1)))
+    3 * (2*(if 1<2 then 1 else x*fact(x-1)))
+    3 * (2*1)
+    3 * 2
+    6
 
-    -- imperative: accumulation
-    -- for (x=0; x<length(t); x++) { sum += x }
-    foldl' (+) 0 t
+Many things are to note.
+First the reduction was non-strict.
+The evaluation is lazy.
+For example:
 
-    -- imperative: many times the same thing
-    -- for (x=0;x<10;x++) { something }
-    repeat 10 something
+    fact (3-1)
 
-    -- use the tab indice
-    map f (zip t [0..])
+    -- reduced to
+    (let x = 3-1 in if x<2 then 1 else x*fact (x-1))
 
+    {-hi-}-- did not reduced to{-/hi-}
+    fact 2
+
+Explication with the AST (Abstract Syntax Tree)
+
+> **Lazy evaluation**  
+> Start reduction by the higher non evaluated node.
+> 
+> blogimage("AST-lazy.png","AST")
+> 
+> reduces to
+> 
+> blogimage("AST-lazy-reduced.png","AST reduced non strictly")
+
+
+> **Strict**  
+> Start reduction ky the deepest non fully evaluated node.
+> 
+> blogimage("AST-strict.png","AST")
+> 
+> reduces to
+> 
+> blogimage("AST-strict-reduced.png","AST reduced strictly")
+
+Lazy evaluation make it easier not to reach ⊥ (I mean infinite loop).
+
+Typically `head [1..1000000000]` returns `1` almost instantaneously in Haskell.
+While if strictly evaluated would take a _lot_ of memory and time.
+Also we could do `head [1..]` and it returns `1`.
+
+
+So in Haskell you define functions and they are reduced to produce computation.
+There are a _lot_ of syntactical sugar in Haskell to help you write less code.
+But in the end, it will be translated that way.
+
+That was the functions part. But there is the other at least as important part.
+The types.
+
+### Types
+
+In Haskell, types are extremely important. And also hard to figure out.
+
+    >>> :t fact
+    fact :: (Num a, Ord a) => a -> a
+
+The heck does this mean? Before the `=>`, it means that the type `a`
+belongs to the _type classes_ `Num` and `Ord`.
+The `a -> a` part means `fact` is a function from `a` to `a`.
+
+Every types in the type class `Ord` could be used with `(<)`.
+And Every types in the type class `Num` could be used with `(*)` and `(-)`.
+
+The type classes are a kind of interface declaration for types.
+For example there is an _instance_ of `Num` for `Int`, `Integer`, `Float`...
