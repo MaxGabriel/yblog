@@ -1,6 +1,6 @@
 ---
 kind:           article
-published:      2013-10-09
+published:      2013-10-10
 image: /Scratch/img/blog/Useful-Haskell/main.png
 title: Useful Haskell
 author: Yann Esposito
@@ -12,7 +12,8 @@ blogimage("main.png","Main image")
 
 <div class="intro">
 
-%tldr
+%tldr Learning Haskell actually sucked for me.
+So here what I would I've loved to have when I started.
 
 
 </div>

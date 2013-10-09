@@ -1,6 +1,6 @@
 ---
 kind:           article
-published:      2013-10-09
+published:      2013-10-10
 image: /Scratch/img/blog/Useful-Haskell/main.png
 en: title: Useful Haskell
 fr: title: Useful Haskell
@@ -13,9 +13,11 @@ blogimage("main.png","Main image")
 
 <div class="intro">
 
-en: %tldr
+en: %tldr Learning Haskell actually sucked for me.
+en: So here what I would I've loved to have when I started.
 
-fr: %tlal
+fr: %tlal Apprendre Haskell était vraiment horrible pour moi.
+fr: Voici une liste de choses que j'aurai adoré avoir pour débuter.
 
 </div>
 
