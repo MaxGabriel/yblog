@@ -45,7 +45,6 @@ could be done using a far nicer syntax.
 ### Definitions
 
 Assign a value to some symbol.
-Each value has some type.
 
     b = True
     c = 'a'
@@ -70,12 +69,25 @@ There are the following basic type you can use:
 
 And you can compose them to create more complex types.
 
-    data Str = StrConstr [Char]
-    hello = StrConstr ['H','e','l','l','o'] :: Str
+    data AndType = Product String Int
+    hello = Product "Hello" 3 :: ProductType
 
-    data CharOrInt = C Char | I Int
-    letter_x = C 'x'    :: CharOrInt
-    integer_5 = I '5'   :: CharOrInt
+    data OrType = C Char | I Int
+    letter_x = C 'x'    :: OrType
+    integer_5 = I '5'   :: OrType
+
+    data Tree = Node Int [Tree]
+    data RecordTree = Node { Value :: Int
+                           , Sons :: [RecordTree] }
+
+Up until here this is classic data structure (same as in C/C++/Javascript...).
+Game changer, a type can take another type as parameter!
+
+    data GeneralTree a = Node { Value :: a, Sons :: [GeneralTree] }
+
+What does that mean? That mean a Haskell type is more than a classical
+data structure.
+
 
 
 Lists:
